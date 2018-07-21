@@ -2,6 +2,8 @@ import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import MonacoEditor from 'react-monaco-editor';
 
+import { prefix } from '../../../../utils/customPrefixer';
+
 const propTypes = {
   defaultOutput: PropTypes.string,
   dimensions: PropTypes.object,
@@ -45,7 +47,7 @@ class Output extends PureComponent {
     const { output, defaultOutput, height } = this.props;
     return (
       <Fragment>
-        <base href='/' />
+        <base href={prefix('/')} />
         <MonacoEditor
           className='challenge-output'
           editorDidMount={::this.editorDidMount}

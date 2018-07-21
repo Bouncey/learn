@@ -107,7 +107,7 @@ const webpack = require('webpack');
 const RmServiceWorkerPlugin = require('webpack-remove-serviceworker-plugin');
 const generateBabelConfig = require('gatsby/dist/utils/babel-config');
 
-exports.modifyWebpackConfig = ({ config, stage }) => {
+exports.modifyWebpackConfig = ({ config, stage, pathPrefix = '' }) => {
   const program = {
     directory: __dirname,
     browserslist: ['> 1%', 'last 2 versions', 'IE >= 9']
@@ -139,6 +139,8 @@ exports.modifyWebpackConfig = ({ config, stage }) => {
     ]);
     config.plugin('DefinePlugin', webpack.DefinePlugin, [
       {
+        PATH_PREFIX: JSON.stringify(pathPrefix),
+        ENV: JSON.stringify(process.env.NODE_ENV),
         HOME_PATH: JSON.stringify(
           process.env.HOME_PATH || 'http://localhost:3000'
         ),

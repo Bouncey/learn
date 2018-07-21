@@ -8,6 +8,8 @@ import { executeChallenge, updateFile } from '../redux';
 import { userSelector } from '../../../redux/app';
 import { createSelector } from 'reselect';
 
+import { prefix } from '../../../../utils/customPrefixer';
+
 const propTypes = {
   contents: PropTypes.string,
   dimensions: PropTypes.object,
@@ -16,6 +18,11 @@ const propTypes = {
   fileKey: PropTypes.string,
   theme: PropTypes.string,
   updateFile: PropTypes.func.isRequired
+};
+const requireConfig = {
+  paths: {
+    vs: prefix('/vs')
+  }
 };
 
 const mapStateToProps = createSelector(
@@ -103,13 +110,14 @@ class Editor extends PureComponent {
     const editorTheme = theme === 'night' ? 'vs-dark' : 'vs';
     return (
       <div className='classic-editor editor'>
-        <base href='/' />
+        <base href={prefix('/')} />
         <MonacoEditor
           editorDidMount={::this.editorDidMount}
           key={`${editorTheme}-${fileKey}`}
           language={modeMap[ext]}
           onChange={::this.onChange}
           options={this.options}
+          requireConfig={requireConfig}
           theme={editorTheme}
           value={contents}
         />

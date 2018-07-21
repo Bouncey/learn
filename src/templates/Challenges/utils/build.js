@@ -17,12 +17,13 @@ import {
 } from '../rechallenge/transformers';
 import { cssToHtml, jsToHtml, concatHtml } from '../rechallenge/builders.js';
 import { createFileStream, pipe } from './polyvinyl';
+import { prefix } from '../../../../utils/customPrefixer.js';
 
 const jQuery = {
   src: 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'
 };
-const frameRunner = {
-  src: '/js/frame-runner.js',
+export const frameRunner = {
+  src: prefix('/js/frame-runner.js'),
   crossDomain: false,
   cacheBreaker: true
 };

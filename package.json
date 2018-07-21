@@ -67,9 +67,8 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "yarn build:frame-runner && gatsby build",
+    "build": "yarn build:frame-runner && gatsby build --prefix-paths",
     "build:frame-runner": "webpack --config ./webpack-frame-runner.js",
-    "build:loop-protect": "webpack --config ./webpack-loop-protect.js",
     "develop": "yarn build:frame-runner && gatsby develop",
     "format": "yarn format:gatsby && yarn format:src && yarn format:utils && yarn lint",
     "format:gatsby": "prettier --write './gatsby*.js'",
@@ -80,9 +79,13 @@
     "lint:src": "eslint ./src . --fix",
     "lint:utils": "eslint ./utils . --fix",
     "pretty": "yarn format && yarn lint",
-    "test": "jest src",
-    "test:ci": "yarn format && jest src",
-    "test:watch": "jest --watch src"
+    "serve": "node bin/serve.js",
+    "test": "jest src && jest utils",
+    "test:ci": "yarn format && jest src && jest utils",
+    "test:src": "jest src",
+    "test:utils": "jest utils",
+    "test:watch-src": "jest --watch src",
+    "test:watch-utils": "jest --watch utils"
   },
   "jest": {
     "verbose": true,
@@ -97,12 +100,15 @@
     "babel-eslint": "^8.2.2",
     "babel-plugin-transform-es2015-arrow-functions": "^6.22.0",
     "babel-plugin-transform-function-bind": "^6.22.0",
+    "chalk": "^2.4.1",
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.19.1",
     "eslint-config-freecodecamp": "^1.1.1",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-prefer-object-spread": "^1.2.1",
     "eslint-plugin-react": "^7.7.0",
+    "express": "^4.16.3",
+    "morgan": "^1.9.0",
     "prettier": "^1.11.1",
     "sinon": "^4.5.0"
   }

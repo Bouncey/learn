@@ -7,8 +7,9 @@ import matchesProperty from 'lodash/matchesProperty';
 import partial from 'lodash/partial';
 import stubTrue from 'lodash/stubTrue';
 
-import { fetchScript, fetchLink } from '../utils/fetch-and-cache.js';
+import { fetchScript, fetchLink } from '../utils/fetch-and-cache';
 import { compileHeadTail, setExt, transformContents } from '../utils/polyvinyl';
+import { frameRunner } from '../utils/build';
 
 const htmlCatch = '\n<!--fcc-->\n';
 const jsCatch = '\n;/*fcc*/\n';
@@ -88,11 +89,7 @@ export function concatHtml(required, template) {
   return Observable.combineLatest(
     head,
     body,
-    fetchScript({
-      src: '/js/frame-runner.js',
-      crossDomain: false,
-      cacheBreaker: true
-    }),
+    fetchScript(frameRunner),
     sourceMap,
     (head, body, frameRunner, sources) => ({
       build: head + body + frameRunner,
